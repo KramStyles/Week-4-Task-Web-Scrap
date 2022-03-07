@@ -1,6 +1,11 @@
 from unittest import main, TestCase
+from utils.utils import common_words
+
 
 class TestGetData(TestCase):
+    def setUpClass(cls) -> None:
+        pass
+
     def setUp(self) -> None:
         pass
 
@@ -9,6 +14,7 @@ class TestGetData(TestCase):
 
     def test_for_soup_data(self):
         pass
+
 
 class TestCleanData(TestCase):
     def setUp(self) -> None:
@@ -22,6 +28,7 @@ class TestCleanData(TestCase):
 
     def test_to_check_for_most_used_words(self):
         pass
+
 
 class TestPlotData(TestCase):
     def setUp(self) -> None:
