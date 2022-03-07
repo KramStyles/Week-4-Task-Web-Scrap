@@ -13,6 +13,9 @@ class GetData:
         self.url = url
 
     def validate_inputs(self, url='https://www.python.org'):
+        return False
+
+    def fetch_data(self):
         pass
 
     def get_soup(self):
