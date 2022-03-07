@@ -1,3 +1,4 @@
+import validators as val
 import matplotlib.pyplot as plt
 
 from requests import get
@@ -11,7 +12,7 @@ class GetData:
     def __init__(self, url):
         self.url = url
 
-    def validate_inputs(self):
+    def validate_inputs(self, url='https://www.python.org'):
         pass
 
     def get_soup(self):

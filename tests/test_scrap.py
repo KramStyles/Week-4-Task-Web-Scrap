@@ -1,16 +1,22 @@
+import app
+
 from unittest import main, TestCase
 from utils.utils import common_words
+from requests import get
 
 
 class TestGetData(TestCase):
     def setUpClass(cls) -> None:
-        pass
+        url = 'https://pacesetterfrontier.com'
+        result = get(url)
 
-    def setUp(self) -> None:
-        pass
+        cls.get_data = app.GetData(url)
 
     def test_validate_inputs(self):
-        pass
+        self.assertTrue(self.get_data.validate_inputs())
+        self.assertRaises(self.get_data.validate_inputs(12), ValueError)
+        self.assertEqual(self.get_data.validate_inputs('mark.eke@decagon.dev'), "Only valid web address allowed!")
+
 
     def test_for_soup_data(self):
         pass
