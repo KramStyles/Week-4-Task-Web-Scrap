@@ -19,12 +19,12 @@ class TestGetData(TestCase):
 
     def test_for_fetching_data(self):
         self.assertTrue(self.result.ok)
+        self.assertEqual(self.result.status_code, 200)
         self.url = 'https://solu.com'
         self.assertRaises(self.get_data.fetch_data(), ConnectionError)
 
-
     def test_for_soup_data(self):
-        pass
+        self.assertIsInstance(self.get_data.get_soup(), app.bs)
 
 
 class TestCleanData(TestCase):
