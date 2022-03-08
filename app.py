@@ -32,7 +32,9 @@ class GetData:
             try:
                 return requests.get(self.url)
             except ConnectionError as err:
-                return f"{self.url} is not available. -≥ {err}"
+                return f"Website is not available."
+            except requests.exceptions.ConnectionError as err:
+                return "Connection Error. -> Invalid URL"
         return data
 
     def get_soup(self):
@@ -63,6 +65,8 @@ class CleanData:
 class DisplayData:
     def __init__(self, words):
         self.words = words
+        self.convert_data()
+        self.plot_data()
 
     def convert_data(self):
         self.words = pd.DataFrame(self.words)
@@ -86,12 +90,15 @@ class Run:
             url = input('Enter a website to analyze!: ')
             self.data = GetData(url)
             self.soup = self.data.get_soup()
-
-            self.cleaned_data = CleanData(self.soup)
-            print('The top word is:', self.cleaned_data.words[0][0])
-            self.plot_data = DisplayData(self.cleaned_data.words)
+            if type(self.soup) == str and len(self.soup) > 50:
+                self.cleaned_data = CleanData(self.soup)
+                print('The top word is:', self.cleaned_data.words[0][0])
+                self.plot_data = DisplayData(self.cleaned_data.words)
+            else:
+                print(self.soup)
 
             run = input('Would you like to scrape a website (y/n)? ')
+        print('Thanks for analyzing! Come back again!')
 
 
 if __name__ == '__main__':
