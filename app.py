@@ -13,10 +13,17 @@ class GetData:
         self.url = url
 
     def validate_inputs(self, url='https://www.python.org'):
-        return False
+        if not url:
+            return False
+        elif type(url) != str:
+            return ValueError('Only string inputs are allowed')
+        elif not val.url(url):
+            return 'Only valid web address allowed!'
+        return True
 
     def fetch_data(self):
-        pass
+        if self.validate_inputs() == True:
+            return get(self.url)
 
     def get_soup(self):
         pass

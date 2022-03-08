@@ -1,15 +1,16 @@
+import unittest
 import app
 
 import __mock__ as mock
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from unittest import main, TestCase
+# from unittest import main, TestCase
 from utils.utils import common_words
 from requests import get
 
 
-class TestGetData(TestCase):
+class TestGetData(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.url = 'https://pacesetterfrontier.com'
@@ -18,8 +19,8 @@ class TestGetData(TestCase):
 
     def test_validate_inputs(self):
         self.assertTrue(self.get_data.validate_inputs())
-        self.assertRaises(self.get_data.validate_inputs(12), ValueError)
-        self.assertEqual(self.get_data.validate_inputs('mark.eke@decagon.dev'), "Only valid web address allowed!")
+        self.assertIsInstance(self.get_data.validate_inputs(12), ValueError)
+        self.assertEqual(self.get_data.validate_inputs('mark.eke@decagon.dev'), 'Only valid web address allowed!')
 
     def test_for_fetching_data(self):
         self.assertTrue(self.result.ok)
@@ -37,7 +38,7 @@ class TestGetData(TestCase):
         del cls.get_data
 
 
-class TestCleanData(TestCase):
+class TestCleanData(unittest.TestCase):
     def setUp(self) -> None:
         self.mock_site = mock.mock_site
         self.clean_data = app.CleanData(self.mock_site)
@@ -47,7 +48,7 @@ class TestCleanData(TestCase):
         self.assertIsInstance(self.clean_data.check_chars(), list)
 
 
-class TestWords(TestCase):
+class TestWords(unittest.TestCase):
     def setUp(self) -> None:
         self.clean_data = app.CleanData(mock.mock_site)
         self.mock_site = self.clean_data.check_chars()
@@ -64,7 +65,7 @@ class TestWords(TestCase):
         del self.mock_site
 
 
-class TestPlotData(TestCase):
+class TestPlotData(unittest.TestCase):
     def setUp(self) -> None:
         self.display_data = app.DisplayData(mock.mock_frequent_words)
 
@@ -76,4 +77,4 @@ class TestPlotData(TestCase):
 
 
 if __name__ == '__main__':
-    main()
+    unittest.main()
