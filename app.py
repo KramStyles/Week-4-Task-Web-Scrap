@@ -66,20 +66,28 @@ class DisplayData:
     def __init__(self, words):
         self.words = words
         self.convert_data()
-        self.plot_data()
+
+        # Chart information
+        self.axis_x = self.words[0]
+        self.axis_y = self.words[1]
+
+        # Plot Charts
+        self.plot_bar_chart()
+        self.plot_pie_chart()
 
     def convert_data(self):
         self.words = pd.DataFrame(self.words)
         return self.words
 
-    def plot_data(self):
-        axis_x = self.words[0]
-        axis_y = self.words[1]
-        plt.bar(axis_x, axis_y)
+    def plot_bar_chart(self):
+        plt.bar(self.axis_x, self.axis_y)
         plt.show()
 
-        plt.pie(axis_y, labels=axis_x, shadow=True, explode=np.random.uniform(low=0.05, high=0.05, size=axis_x.size))
-        plt.pie(axis_y, labels=axis_x, shadow=True)
+    def plot_pie_chart(self):
+
+        plt.pie(self.axis_y, labels=self.axis_x, shadow=True,
+                explode=np.random.uniform(low=0.05, high=0.05,
+                size=self.axis_x.size))
         plt.show()
 
 
@@ -92,10 +100,10 @@ class Run:
             self.soup = self.data.get_soup()
             if type(self.soup) == str and len(self.soup) > 50:
                 self.cleaned_data = CleanData(self.soup)
-                print('The top word is:', self.cleaned_data.words[0][0])
-                self.plot_data = DisplayData(self.cleaned_data.words)
+                print('The top word is:', self.cleaned_data.words[0][0], '\n')
+                DisplayData(self.cleaned_data.words)
             else:
-                print(self.soup)
+                print(self.soup, '\n')
 
             run = input('Would you like to scrape a website (y/n)? ')
         print('Thanks for analyzing! Come back again!')
