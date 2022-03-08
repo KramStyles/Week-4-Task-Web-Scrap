@@ -1,5 +1,9 @@
 import app
 
+import __mock__ as mock
+import pandas as pd
+import matplotlib.pyplot as plt
+
 from unittest import main, TestCase
 from utils.utils import common_words
 from requests import get
@@ -35,21 +39,37 @@ class TestGetData(TestCase):
 
 class TestCleanData(TestCase):
     def setUp(self) -> None:
-        pass
+        self.mock_site = mock.mock_site
+        self.clean_data = app.CleanData(self.mock_site)
 
     def test_to_check_for_characters(self):
-        pass
+        self.assertIsNone(self.clean_data.check_chars(), False)
+        self.assertIsInstance(self.clean_data.check_chars(), list)
+
+
+class TestWords(TestCase):
+    def setUp(self) -> None:
+        self.clean_data = app.CleanData(mock.mock_site)
+        self.mock_site = self.clean_data.check_chars()
 
     def test_to_check_for_common_words(self):
-        pass
+        self.assertFalse('in' not in self.clean_data.check_common_words(), False)
 
     def test_to_check_for_most_used_words(self):
-        pass
+        self.data = self.clean_data.check_common_words()
+        self.assertEqual(len(self.clean_data.generate_frequent_words(10)), 10)
+
+    def tearDown(self) -> None:
+        del self.clean_data
+        del self.mock_site
 
 
 class TestPlotData(TestCase):
     def setUp(self) -> None:
-        pass
+        self.display_data = app.DisplayData(mock.mock_frequent_words)
+
+    def test_to_convert_data(self):
+        self.assertIsInstance(self.display_data.convert_data(), pd.core.frame.DataFrame)
 
     def test_for_data_plot(self):
         pass

@@ -30,7 +30,7 @@ common_words = [
     'is',
     'a',
     'in',
-    'more',
+    'or',
     'of',
     'are',
 ]

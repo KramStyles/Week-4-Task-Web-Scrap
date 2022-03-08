@@ -32,13 +32,16 @@ class CleanData:
     def check_common_words(self):
         pass
 
-    def generate_frequent_words(self):
+    def generate_frequent_words(self, num_words=7):
         pass
 
 
-class PlotData:
+class DisplayData:
     def __init__(self, words):
         self.words = words
+
+    def convert_data(self):
+        pass
 
     def plot_data(self):
         pass
