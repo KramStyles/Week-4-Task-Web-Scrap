@@ -26,6 +26,12 @@ class TestGetData(TestCase):
     def test_for_soup_data(self):
         self.assertIsInstance(self.get_data.get_soup(), app.bs)
 
+    @classmethod
+    def tearDownClass(cls) -> None:
+        del cls.url
+        del cls.result
+        del cls.get_data
+
 
 class TestCleanData(TestCase):
     def setUp(self) -> None:
