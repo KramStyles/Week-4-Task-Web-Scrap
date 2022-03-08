@@ -1,6 +1,7 @@
 from components.display_data import DisplayData
 from components.get_data import GetData
 from components.clean_data import CleanData
+from components.save_data import SaveData
 
 
 class Run:
@@ -13,7 +14,8 @@ class Run:
             if type(self.soup) == str and len(self.soup) > 50:
                 self.cleaned_data = CleanData(self.soup)
                 print('The top word is:', self.cleaned_data.words[0][0], '\n')
-                DisplayData(self.cleaned_data.words)
+                # DisplayData(self.cleaned_data.words)
+                SaveData(url, self.cleaned_data.words[0])
             else:
                 print(self.soup, '\n')
 
