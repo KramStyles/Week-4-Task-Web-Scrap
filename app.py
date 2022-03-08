@@ -1,7 +1,8 @@
+import requests
+
 import validators as val
 import matplotlib.pyplot as plt
 
-from requests import get
 from bs4 import BeautifulSoup as bs
 from collections import Counter
 
@@ -23,24 +24,31 @@ class GetData:
 
     def fetch_data(self):
         if self.validate_inputs() == True:
-            return get(self.url)
+            try:
+                return requests.get(self.url)
+            except ConnectionError as err:
+                return f"{self.url} is not available. -≥ {err}"
 
     def get_soup(self):
-        pass
+        website = self.fetch_data()
+        if isinstance(website, requests.models.Response):
+            return bs(website.text, 'html.parser').body.getText()
 
 
 class CleanData:
     def __init__(self, data):
         self.data = data
 
-    def check_chars(self):
-        pass
+    def remove_chars(self):
+        return self.data.split()
 
     def check_common_words(self):
-        pass
+        result = self.remove_chars()
+        all_text = [word.lower() for word in result if word.isalpha() and word not in utils.common_words]
+        return all_text
 
-    def generate_frequent_words(self, num_words=7):
-        pass
+    def generate_frequent_words(self):
+        return Counter(self.check_common_words()).most_common(10)
 
 
 class DisplayData:

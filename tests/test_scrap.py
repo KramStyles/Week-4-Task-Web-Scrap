@@ -25,11 +25,9 @@ class TestGetData(unittest.TestCase):
     def test_for_fetching_data(self):
         self.assertTrue(self.result.ok)
         self.assertEqual(self.result.status_code, 200)
-        self.url = 'https://solu.com'
-        self.assertRaises(self.get_data.fetch_data(), ConnectionError)
 
     def test_for_soup_data(self):
-        self.assertIsInstance(self.get_data.get_soup(), app.bs)
+        self.assertIsInstance(self.get_data.get_soup(), str)
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -43,22 +41,21 @@ class TestCleanData(unittest.TestCase):
         self.mock_site = mock.mock_site
         self.clean_data = app.CleanData(self.mock_site)
 
-    def test_to_check_for_characters(self):
-        self.assertIsNone(self.clean_data.check_chars(), False)
-        self.assertIsInstance(self.clean_data.check_chars(), list)
+    def test_to_check_for_special_characters(self):
+        self.assertIsNotNone(self.clean_data.remove_chars())
+        self.assertIsInstance(self.clean_data.remove_chars(), list)
 
 
 class TestWords(unittest.TestCase):
     def setUp(self) -> None:
         self.clean_data = app.CleanData(mock.mock_site)
-        self.mock_site = self.clean_data.check_chars()
+        self.mock_site = self.clean_data.remove_chars()
 
     def test_to_check_for_common_words(self):
-        self.assertFalse('in' not in self.clean_data.check_common_words(), False)
+        self.assertFalse('in' in self.clean_data.check_common_words())
 
     def test_to_check_for_most_used_words(self):
-        self.data = self.clean_data.check_common_words()
-        self.assertEqual(len(self.clean_data.generate_frequent_words(10)), 10)
+        self.assertEqual(len(self.clean_data.generate_frequent_words()), 10)
 
     def tearDown(self) -> None:
         del self.clean_data
