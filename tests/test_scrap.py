@@ -69,7 +69,7 @@ class TestPlotData(unittest.TestCase):
     def test_to_convert_data(self):
         self.assertIsInstance(self.display_data.convert_data(), pd.core.frame.DataFrame)
 
-    def test_for_data_plot(self):
+    def test_for_logs(self):
         pass
 
 
