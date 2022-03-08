@@ -14,14 +14,10 @@ class Run:
             if type(self.soup) == str and len(self.soup) > 50:
                 self.cleaned_data = CleanData(self.soup)
                 print('The top word is:', self.cleaned_data.words[0][0], '\n')
-                # DisplayData(self.cleaned_data.words)
+                DisplayData(self.cleaned_data.words)
                 SaveData(url, self.cleaned_data.words[0])
             else:
                 print(self.soup, '\n')
 
             run = input('Would you like to scrape a website (y/n)? ')
         print('Thanks for analyzing! Come back again!')
-
-
-if __name__ == '__main__':
-    Run()
