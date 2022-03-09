@@ -1,12 +1,13 @@
 import csv
 import os
 
+
 class SaveData:
     def __init__(self, url, data):
         self.url = url
         self.data = data
 
-        if os.path.exists(os.getcwd()+'/src/log.csv'):
+        if os.path.exists(os.getcwd() + '/src/log.csv'):
             self.save_log()
         else:
             self.save_log(new_file=True)
@@ -20,4 +21,3 @@ class SaveData:
                 writer.writerow([self.url, self.data[0], self.data[1]])
         except IOError as err:
             print('IO Error has occurred: ->', err)
-

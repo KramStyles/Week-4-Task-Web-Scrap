@@ -3,16 +3,18 @@ from utils import utils
 
 
 class CleanData:
-    def __init__(self, data):
+    def __init__(self, data, testing=False):
         self.data = data
-        self.words = self.generate_frequent_words()
+        if not testing:
+            self.words = self.generate_frequent_words()
 
     def remove_chars(self):
+        print('DROP THIS:', self.data)
         return self.data.split()
 
     def check_common_words(self):
         result = self.remove_chars()
-        all_text = [word.lower() for word in result if word.isalpha() and word not in utils.common_words]
+        all_text = [word.lower() for word in result if word.isalpha() and word.lower() not in utils.common_words]
         return all_text
 
     def generate_frequent_words(self):

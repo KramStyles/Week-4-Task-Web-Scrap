@@ -33,4 +33,8 @@ common_words = [
     'or',
     'of',
     'are',
+    'on',
+    'we',
+    'an',
+    'at'
 ]

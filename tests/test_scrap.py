@@ -38,18 +38,23 @@ class TestGetData(unittest.TestCase):
 
 class TestCleanData(unittest.TestCase):
     def setUp(self) -> None:
-        self.mock_site = mock.mock_site
-        self.clean_data = app.CleanData(self.mock_site)
+        self.data = mock.mock_site
+        self.clean_data = app.CleanData(self.data, testing=True)
 
     def test_to_check_for_special_characters(self):
         self.assertIsNotNone(self.clean_data.remove_chars())
         self.assertIsInstance(self.clean_data.remove_chars(), list)
 
+    def tearDown(self) -> None:
+        del self.data
+        del self.clean_data
+
 
 class TestWords(unittest.TestCase):
     def setUp(self) -> None:
+        print(mock.mock_site)
         self.clean_data = app.CleanData(mock.mock_site)
-        self.mock_site = self.clean_data.remove_chars()
+        # self.mock_site = self.clean_data.remove_chars()
 
     def test_to_check_for_common_words(self):
         self.assertFalse('in' in self.clean_data.check_common_words())
