@@ -52,9 +52,7 @@ class TestCleanData(unittest.TestCase):
 
 class TestWords(unittest.TestCase):
     def setUp(self) -> None:
-        print(mock.mock_site)
-        self.clean_data = app.CleanData(mock.mock_site)
-        # self.mock_site = self.clean_data.remove_chars()
+        self.clean_data = app.CleanData(mock.mock_site, testing=True)
 
     def test_to_check_for_common_words(self):
         self.assertFalse('in' in self.clean_data.check_common_words())
@@ -64,7 +62,6 @@ class TestWords(unittest.TestCase):
 
     def tearDown(self) -> None:
         del self.clean_data
-        del self.mock_site
 
 
 class TestPlotData(unittest.TestCase):
@@ -73,6 +70,12 @@ class TestPlotData(unittest.TestCase):
 
     def test_to_convert_data(self):
         self.assertIsInstance(self.display_data.convert_data(), pd.core.frame.DataFrame)
+
+    def tearDown(self) -> None:
+        del self.display_data
+
+
+class TestLog(unittest.TestCase):
 
     def test_for_logs(self):
         pass

@@ -9,7 +9,6 @@ class CleanData:
             self.words = self.generate_frequent_words()
 
     def remove_chars(self):
-        print('DROP THIS:', self.data)
         return self.data.split()
 
     def check_common_words(self):
