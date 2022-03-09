@@ -1,13 +1,12 @@
 import unittest
 import app
+import os
 
-import __mock__ as mock
+# import __mock__ as mock_site
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# from unittest import main, TestCase
-from utils.utils import common_words
 from requests import get
+from .__mock__ import *
 
 
 class TestGetData(unittest.TestCase):
@@ -38,7 +37,7 @@ class TestGetData(unittest.TestCase):
 
 class TestCleanData(unittest.TestCase):
     def setUp(self) -> None:
-        self.data = mock.mock_site
+        self.data = mock_site
         self.clean_data = app.CleanData(self.data, testing=True)
 
     def test_to_check_for_special_characters(self):
@@ -52,7 +51,7 @@ class TestCleanData(unittest.TestCase):
 
 class TestWords(unittest.TestCase):
     def setUp(self) -> None:
-        self.clean_data = app.CleanData(mock.mock_site, testing=True)
+        self.clean_data = app.CleanData(mock_site, testing=True)
 
     def test_to_check_for_common_words(self):
         self.assertFalse('in' in self.clean_data.check_common_words())
@@ -66,7 +65,7 @@ class TestWords(unittest.TestCase):
 
 class TestPlotData(unittest.TestCase):
     def setUp(self) -> None:
-        self.display_data = app.DisplayData(mock.mock_frequent_words)
+        self.display_data = app.DisplayData(mock_frequent_words)
 
     def test_to_convert_data(self):
         self.assertIsInstance(self.display_data.convert_data(), pd.core.frame.DataFrame)
@@ -76,9 +75,13 @@ class TestPlotData(unittest.TestCase):
 
 
 class TestLog(unittest.TestCase):
+    def setUp(self) -> None:
+        self.path = os.path.exists(os.getcwd())
+        self.bad_path = os.path.exists(os.getcwd() + '/source')
 
     def test_for_logs(self):
-        pass
+        self.assertTrue(self.path)
+        self.assertFalse(self.bad_path)
 
 
 if __name__ == '__main__':

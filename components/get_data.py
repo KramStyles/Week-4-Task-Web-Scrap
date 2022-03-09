@@ -25,9 +25,9 @@ class GetData:
         if data == True:
             try:
                 return requests.get(self.url)
-            except ConnectionError as err:
+            except ConnectionError:
                 return f"Website is not available."
-            except requests.exceptions.ConnectionError as err:
+            except requests.exceptions.ConnectionError:
                 return "Connection Error. -> Invalid URL"
         return data
 
